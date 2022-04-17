@@ -1,0 +1,334 @@
+/*
+	KOMPRANDO: aplicativo de lista de compras
+	(c) Bruno Castro, 2022
+*/
+
+* {
+	margin: 0px;
+	padding: 0px;
+	font-size: 18px;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+	background-image: url('./images/background-body.png');
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+h1 {
+	font-size: 40px;
+	font-weight: 700;
+	margin-top: 40px;
+	margin-bottom: 30px;
+	background-size: 609px;
+	background-position: center -10px;
+	text-align: center;
+	background-image: url('./images/komprando-header.png');
+	background-repeat: no-repeat;
+	color: #e8499c;
+}
+
+.containerInserir,
+.containerListaCompras,
+.containerTotal,
+.popup {
+	width: 600px;
+	margin: 20px auto;
+	border-radius: 8px;
+	display: flex;
+	justify-content: space-around;
+	background-color: rgba(32, 44, 71, 0.5);
+	box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+	rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+	rgba(0, 0, 0, 0.3) 0px 10px 15px -3px,
+	rgba(0, 0, 0, 0.55) 0px 4px 6px -2px;
+}
+
+.containerInserir {
+	height:65px;
+	padding: 0px;
+	align-items: center;
+}
+
+/* Texto 'inserir item na lista' do topo */
+.rotuloInserir {
+	font-weight: bold;
+	color: white;
+}
+
+.inputNomeItem, /* caixa de texto com nome do item */
+.inputPopupPrecoItem { /* caixa de texto com o preço do item */
+	height: 32px;
+	padding: 4px;
+	border-radius: 8px;
+	border:none;
+	color: rgb(55, 65, 81);
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+.botaoInserirNome,
+.popup .botaoPopupInserirPreco,
+.popup .botaoPopupCancelar {
+	width:100px;
+	height: 40px;
+	padding: 4px 16px;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: bold;
+	border: none;
+	background-image: linear-gradient(to right, rgba(142, 30, 86, 0.8), rgba(6, 87, 60, 0.9));
+	color: white;	
+}
+
+.botaoInserirNome:hover,
+.popup .botaoPopupInserirPreco:hover,
+.popup .botaoPopupCancelar:hover {
+
+	padding: 4px 16px;
+	background:white;
+	color: rgb(139, 92, 246);
+}
+
+.containerListaCompras {
+	padding: 0px 0px 1px 0px;
+	min-height: 40px;
+	display: block;
+}
+
+.containerListaCompras h2, /* Rótulo "Lista de compras" */
+.popup p { /* título da popup */
+	width: auto;
+	margin: 0px auto 12px auto;
+	padding: 4px;
+	border-radius: 8px 8px 0px 0px;
+	font-size: 20px;
+	letter-spacing: 2px;
+	display:block;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: normal;
+	color: white;
+	background-image: linear-gradient(to right, rgba(142, 30, 86, 0.8), rgba(6, 87, 60, 0.8));
+}
+
+.containerListaCompras ul {
+	list-style-type: none;
+	width: auto;
+	margin: 14px;
+}
+.containerListaCompras li {
+	padding: 5px 18px;
+	margin: 6px 0px;
+	background-color: rgba(0, 0, 0, 0.3);
+	border-radius: 16px;
+}
+
+.containerListaCompras li:hover {
+	background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* <li> que exibe mensagem de lista vazia */
+#listaVazia {
+	color: rgba(255, 255, 255, 0.6);
+	text-align: center;
+	border: none;
+	background: none;
+}
+
+#listaVazia:hover {
+	background: none;
+}
+
+/* checkbox do item da lista de compras*/
+.containerListaCompras input[type = checkbox] {
+	margin-right: 10px;
+	width: 18px;
+	height: 18px;
+	padding: 2px;
+	border-radius: 999px;
+	cursor: pointer;
+	background-clip: content-box;
+	appearance: none;
+	border: solid 1px white;
+}
+
+.containerListaCompras input[type = checkbox]:checked {
+	background-color: rgba(52, 211, 153, 0.7);;
+}
+
+.containerListaCompras input[type = checkbox]:hover {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* nome do item da lista de compras */
+.containerListaCompras span {
+	margin-right: 10px;
+	color: white;
+	text-decoration: none; /* inicialmente não riscado */
+}
+
+.itemComprado {
+	text-decoration: line-through !important;
+	color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.itemNaoComprado {
+	text-decoration: none !important;
+	color: white !important;
+}
+
+/* preço do item da lista de compras*/
+.containerListaCompras strong {
+	margin-right: 8px;
+	font-weight: bold;
+	font-style: normal;
+	color: rgba(52, 211, 153, 0.7);
+}
+
+/* centavos do preço do item da lista de compras*/
+.containerListaCompras em {
+	font-size: 60%;
+	font-weight: bold;
+	font-style: normal;
+	vertical-align: 4px;
+	color: rgba(52, 211, 153, 0.7);
+}
+
+/* botão remover da lista de compras */
+.containerListaCompras button {
+	width: 18px;
+	height: 20px;
+	background-size: 16px 16px;
+	background-position: 0px 4px;
+	background-repeat: no-repeat;
+	border: none;
+	cursor: pointer;
+	background-image: url('./images/icone-cancelar.png');
+	background-color: #00000000; /* fundo transparente */
+	color:#00000000; /* texto transparente */
+}
+
+.containerListaCompras button:hover {
+	background-image: url('./images/icone-cancelar-hover.png');
+}
+
+.containerTotal {
+	width: 500px;
+	height:50px;
+	padding-bottom: 0px;
+	margin-right: 14px;
+	display: block;
+	justify-content: end;
+	align-items: center;
+	text-align: right;
+	border: none;
+	box-shadow: none;
+	background-color: rgba(255, 255, 255, 0.0);
+}
+
+.rotuloTotal {
+	color: white;
+}
+
+.valorTotal {
+	margin-right: 8px;
+	font-size: 32px;
+	font-weight: bold;
+	font-style: normal;
+	color:white;
+}
+
+/* centavos do valor total */
+.valorTotal em {
+	font-size: 50%;
+	font-weight: bold;
+	font-style: normal;
+	vertical-align: 11px;
+	color:white;
+}
+
+.popup {
+	width: 500px;
+	margin: 80px auto;
+	padding: 0px 0px 14px 0px;
+	border-radius: 8px;
+	text-align: center;
+	display: none; /* a popup inicialmente está oculta */
+	background-color: rgba(32, 44, 71, 1.0);
+}
+
+.popupContainer {
+	margin: 0px;
+	padding: 0px;
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+.popup p { /* título da popup */
+	margin: 0px;
+	padding-right: 0px;
+	padding-left: 0px;
+	width: 100%;
+}
+
+/* Nome do item dentro do título da popup */
+.popup span {
+	font-weight: bold;
+	background-color: rgba(0, 0, 0, 0.2);
+	padding: 0px 10px;
+	border-radius: 12px;
+}
+
+.popupLinha {
+	width: 100%;
+	display: flex;
+}
+
+/* gif obtido via API*/
+.popup img {
+	width: 200px;
+	margin: 14px 0px 0px 14px;
+	display: inline;
+	border-radius: 8px;
+	border: solid 2px rgba(255, 255, 255, 0.6);
+}
+.popupColuna {
+	width: 100%;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	display: inline;
+	text-align: center;
+}
+
+.labelValor {
+	display: inline;
+	color: white;
+}
+
+.inputPopupPrecoItem {
+	width: 200px;
+	margin: 14px 0px;
+	display: inline;
+}
+
+.popup .botaoPopupInserirPreco {
+	margin-left: 20px;
+	margin-right: 4px;
+}
+
+.popup .botaoPopupCancelar {
+	margin-left: 4px;
+}
+
+.screenMask {
+	width: 100%;
+	height: 100vh;
+	margin: 0px auto;
+	display: none; /* a máscara da popup inicialmente está oculta */
+	position: fixed;
+	top: 0px;
+	background-color: rgba(0, 0, 0, 0.8);
+}

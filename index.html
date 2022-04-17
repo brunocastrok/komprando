@@ -1,0 +1,55 @@
+<!--
+	KOMPRANDO: aplicativo de lista de compras
+	(c) Bruno Castro, 2022
+-->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Komprando.com – sua lista de compras</title>
+	<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+	<link rel="stylesheet" href="main.css">
+</head>
+<body>
+	<div class = "screenMask">
+		<div class="popup">
+			<div class="popupContainer">
+				<p>Valor do item <span id="popupNomeItem">zyz:</span></p>
+				<div class="popupLinha">
+					<img src="./images/placeholder.gif" class="gifDoItem">
+					<div class="popupColuna">
+						<div class="labelValor">
+							R$ <input class="inputPopupPrecoItem" type="number" placeholder="0">
+						</div>
+						<button class="botaoPopupInserirPreco">Inserir</button>
+						<button class="botaoPopupCancelar">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<h1>Komprando.com</h1>
+	<div class="containerInserir">
+		<span class="rotuloInserir">Inserir item na lista:</span>
+		<input class="inputNomeItem" type="text" placeholder="Nome do produto">
+		<button class="botaoInserirNome">Inserir</button>
+	</div>
+	<div class="containerListaCompras">
+		<h2>Lista de compras</h2>
+		<ul class="listaDeCompras">
+			<li id="listaVazia">Sua lista está vazia. Que tal adicionar um item?</li>
+		</ul>
+		<div class="containerTotal">
+			<div class="subContainerTotal">
+				<span class="rotuloTotal">Total das compras:</span>
+				<span class="valorTotal">R$ 0,00</span>
+			</div>
+		</div>
+	</div>
+	</body>
+	<script src="main.js"></script>
+</body>
+</html>
